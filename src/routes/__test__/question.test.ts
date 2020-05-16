@@ -1,0 +1,61 @@
+import request from "supertest";
+import { app } from "../../app";
+
+import { Question } from "../../models/question";
+
+describe("Create new question route", () => {
+  it("not return 404", async () => {
+    const response = await request(app).post("/api/v1/questions").send({});
+
+    expect(response.status).not.toEqual(404);
+  });
+
+  it("returns 401 if user is not signed in", async () => {
+    await request(app)
+      .post("/api/v1/questions")
+      .send({ title: "question", description: "test" })
+      .expect(401);
+  });
+
+  it("returns 400 with an invalid title", async () => {
+    const cookie = await global.signin();
+
+    await request(app)
+      .post("/api/v1/questions")
+      .set("Cookie", cookie)
+      .send({ description: "test" })
+      .expect(400);
+  });
+
+  it("returns 400 with an invalid description", async () => {
+    const cookie = await global.signin();
+
+    await request(app)
+      .post("/api/v1/questions")
+      .set("Cookie", cookie)
+      .send({ title: "question" })
+      .expect(400);
+  });
+
+  it("creates a question with valid inputs", async () => {
+    let questions = await Question.find({});
+    expect(questions.length).toEqual(0);
+
+    const title = "question 1";
+    const description = "description 1";
+
+    await request(app)
+      .post("/api/v1/questions")
+      .set("Cookie", global.signin())
+      .send({
+        title,
+        description,
+      })
+      .expect(201);
+
+    questions = await Question.find({});
+    expect(questions.length).toEqual(1);
+    expect(questions[0].title).toEqual(title);
+    expect(questions[0].description).toEqual(description);
+  });
+});

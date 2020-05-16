@@ -6,7 +6,7 @@ import { PasswordClient } from "../services/password-client";
 
 import { User } from "../models/user";
 
-const signup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email: email });
@@ -30,7 +30,7 @@ const signup = async (req: Request, res: Response) => {
   res.status(201).send(user);
 };
 
-const signin = async (req: Request, res: Response) => {
+export const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email: email });
@@ -60,14 +60,12 @@ const signin = async (req: Request, res: Response) => {
   res.status(200).send(existingUser);
 };
 
-const signout = (req: Request, res: Response) => {
+export const signout = (req: Request, res: Response) => {
   req.session = null;
 
   res.send({});
 };
 
-const currentUser = (req: Request, res: Response) => {
+export const currentUser = (req: Request, res: Response) => {
   res.send({ currentUser: req.currentUser || null });
 };
-
-export { signup, signin, signout, currentUser };

@@ -8,6 +8,7 @@ import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 
 import { authRouter } from "./routes/auth";
+import { questionRouter } from "./routes/question";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(
 );
 
 app.use("/api/v1/users", authRouter);
+app.use("/api/v1/questions", questionRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
