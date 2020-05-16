@@ -2,8 +2,14 @@ import express from "express";
 import { body } from "express-validator";
 
 import { validateRequest } from "../middlewares/validate-request";
+import { currentUser } from "../middlewares/current-user";
 
-import { signup, signin } from "../controllers/auth";
+import {
+  signup,
+  signin,
+  signout,
+  currentUser as currentUserRoute,
+} from "../controllers/auth";
 
 const router = express.Router();
 
@@ -29,5 +35,9 @@ router.post(
   validateRequest,
   signin
 );
+
+router.post("/signout", signout);
+
+router.get("/currentuser", currentUser, currentUserRoute);
 
 export { router as authRouter };

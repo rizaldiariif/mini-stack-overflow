@@ -60,4 +60,14 @@ const signin = async (req: Request, res: Response) => {
   res.status(200).send(existingUser);
 };
 
-export { signup, signin };
+const signout = (req: Request, res: Response) => {
+  req.session = null;
+
+  res.send({});
+};
+
+const currentUser = (req: Request, res: Response) => {
+  res.send({ currentUser: req.currentUser || null });
+};
+
+export { signup, signin, signout, currentUser };
