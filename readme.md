@@ -32,8 +32,6 @@ Developed with automated test using:
 - [ ] Client Question Functionality
 - [ ] Client Answer Functionality
 
-Basic
-
 ## Quickstart
 
 ### Install dependencies
