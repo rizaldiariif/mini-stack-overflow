@@ -10,7 +10,7 @@ This application is built with:
 - MongoDB
 - NextJS
 
-With development test using:
+Developed with automated test using:
 
 - Jest
 - Supertest
@@ -18,13 +18,13 @@ With development test using:
 
 ## Progress
 
-- [x] Basic Express API Setup
-- [x] Middlewares
-- [x] Custom Error Handlers
-- [x] Authentication Route Functionality
-- [x] Authentication Route Testing
-- [x] Question Route Functionality
-- [x] Question Route Testing
+- [x] ~~Basic Express API Setup~~
+- [x] ~~Middlewares~~
+- [x] ~~Custom Error Handlers~~
+- [x] ~~Authentication Route Functionality~~
+- [x] ~~Authentication Route Testing~~
+- [x] ~~Question Route Functionality~~
+- [x] ~~Question Route Testing~~
 - [ ] Answer Route Functionality
 - [ ] Answer Route Testing
 - [ ] Basic NextJS Setup
