@@ -40,11 +40,18 @@ Developed with automated test using:
 
 ### Run in Deployment mode
 
-To run in deployment mode you have to set the MONGO_URI and JWT_KEY first.
+To run in deployment mode you have to set the environment variable of MONGO_URI and JWT_KEY first.
 
-    npm run demo
+    MONGO_URI=
+    JWT_KEY=
+
+Then run the start command
+
+    npm start
 
 ### Run in Demo mode
+
+You can run this application without any further setup with this mode, but everytime it restarted the data will be deleted because in this mode the application is using mongodb memory server.
 
     npm run demo
 
