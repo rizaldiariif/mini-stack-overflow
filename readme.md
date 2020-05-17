@@ -8,12 +8,31 @@ This application is built with:
 - Typescript (For better readability and consistency)
 - Express
 - MongoDB
+- NextJS
 
 With development test using:
 
 - Jest
 - Supertest
 - Mongodb Memory Server
+
+## Progress
+
+- [x] Basic Express API Setup
+- [x] Middlewares
+- [x] Custom Error Handlers
+- [x] Authentication Route Functionality
+- [x] Authentication Route Testing
+- [x] Question Route Functionality
+- [x] Question Route Testing
+- [ ] Answer Route Functionality
+- [ ] Answer Route Testing
+- [ ] Basic NextJS Setup
+- [ ] Client Auth Functionality
+- [ ] Client Question Functionality
+- [ ] Client Answer Functionality
+
+Basic
 
 ## Quickstart
 
