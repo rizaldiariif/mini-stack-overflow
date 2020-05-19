@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { User, UserDoc } from "../models/user";
 
 interface UserPayload {
-  id: string;
+  _id: string;
   email: string;
 }
 
@@ -32,7 +32,7 @@ export const currentUser = async (
     ) as UserPayload;
 
     const existingUser = await User.findOne({
-      _id: payload.id,
+      _id: payload._id,
       email: payload.email,
     });
 

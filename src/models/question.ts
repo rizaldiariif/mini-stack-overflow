@@ -34,23 +34,18 @@ const questionSchema = new mongoose.Schema(
     },
   },
   {
+    id: false,
     toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
+      virtuals: true,
     },
   }
 );
 
-questionSchema.pre("findOne", function (next) {
-  this.populate("user");
-  next();
-});
-
-questionSchema.pre("find", function (next) {
-  this.populate("user");
-  next();
+questionSchema.virtual("answers", {
+  ref: "Answer",
+  localField: "_id",
+  foreignField: "question",
+  justOne: false,
 });
 
 questionSchema.statics.build = (attrs: QuestionAttrs) => {

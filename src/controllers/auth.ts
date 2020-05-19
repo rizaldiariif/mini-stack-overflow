@@ -20,7 +20,7 @@ export const signup = async (req: Request, res: Response) => {
 
   // Generate token
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { _id: user._id, email: user.email },
     process.env.JWT_KEY!
   );
 

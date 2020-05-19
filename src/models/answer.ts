@@ -19,41 +19,19 @@ interface AnswerModel extends mongoose.Model<AnswerDoc> {
   build(attrs: AnswerAttrs): AnswerDoc;
 }
 
-const answerSchema = new mongoose.Schema(
-  {
-    content: {
-      type: String,
-      required: true,
-    },
-    question: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Question",
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+const answerSchema = new mongoose.Schema({
+  content: {
+    type: String,
+    required: true,
   },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
-  }
-);
-
-answerSchema.pre("findOne", function (next) {
-  this.populate("question");
-  this.populate("user");
-  next();
-});
-
-answerSchema.pre("find", function (next) {
-  this.populate("question");
-  this.populate("user");
-  next();
+  question: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Question",
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 answerSchema.statics.build = (attrs: AnswerAttrs) => {

@@ -20,13 +20,17 @@ export const create = async (req: Request, res: Response) => {
 };
 
 export const getAll = async (req: Request, res: Response) => {
-  const questions = await Question.find();
+  const questions = await Question.find()
+    .populate("user")
+    .populate({ path: "answers", field: "content user", populate: "user" });
 
   res.send(questions);
 };
 
 export const getById = async (req: Request, res: Response) => {
-  const question = await Question.findById(req.params.id);
+  const question = await Question.findById(req.params.id)
+    .populate("user")
+    .populate({ path: "answers", field: "content user", populate: "user" });
 
   res.send(question);
 };
@@ -38,7 +42,7 @@ export const update = async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
-  if (question.user.id !== req.currentUser!.id) {
+  if (question.user._id !== req.currentUser!._id) {
     throw new NotAuthorizedError();
   }
 
