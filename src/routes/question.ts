@@ -4,12 +4,23 @@ import { body } from "express-validator";
 import { validateRequest } from "../middlewares/validate-request";
 import { currentUser } from "../middlewares/current-user";
 import { requireAuth } from "../middlewares/require-auth";
+import { advancedResults } from "../middlewares/advanced-result";
+
+import { Question } from "../models/question";
 
 import { create, update, getAll, getById } from "../controllers/question";
 
 const router = express.Router();
 
-router.get("/", getAll);
+router.get(
+  "/",
+  advancedResults(Question, {
+    path: "answers",
+    select: "content user",
+    populate: { path: "user" },
+  }),
+  getAll
+);
 
 router.get("/:id", getById);
 

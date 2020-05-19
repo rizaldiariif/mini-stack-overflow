@@ -20,11 +20,7 @@ export const create = async (req: Request, res: Response) => {
 };
 
 export const getAll = async (req: Request, res: Response) => {
-  const questions = await Question.find()
-    .populate("user")
-    .populate({ path: "answers", field: "content user", populate: "user" });
-
-  res.send(questions);
+  res.send(res.advancedResults);
 };
 
 export const getById = async (req: Request, res: Response) => {
