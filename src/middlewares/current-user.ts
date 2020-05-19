@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+import { User, UserDoc } from "../models/user";
+
 interface UserPayload {
   id: string;
   email: string;
@@ -9,12 +11,12 @@ interface UserPayload {
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: UserPayload;
+      currentUser?: UserDoc;
     }
   }
 }
 
-export const currentUser = (
+export const currentUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -29,7 +31,14 @@ export const currentUser = (
       process.env.JWT_KEY!
     ) as UserPayload;
 
-    req.currentUser = payload;
+    const existingUser = await User.findOne({
+      _id: payload.id,
+      email: payload.email,
+    });
+
+    if (existingUser) {
+      req.currentUser = existingUser;
+    }
   } catch (error) {}
 
   next();

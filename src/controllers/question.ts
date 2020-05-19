@@ -11,7 +11,7 @@ export const create = async (req: Request, res: Response) => {
   const question = Question.build({
     title,
     description,
-    userId: req.currentUser!.id,
+    user: req.currentUser!,
   });
 
   await question.save();
@@ -38,7 +38,7 @@ export const update = async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
-  if (question.userId !== req.currentUser!.id) {
+  if (question.user.id !== req.currentUser!.id) {
     throw new NotAuthorizedError();
   }
 

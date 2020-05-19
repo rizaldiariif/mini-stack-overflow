@@ -1,15 +1,17 @@
 import mongoose from "mongoose";
 
+import { UserDoc } from "./user";
+
 interface QuestionAttrs {
   title: string;
   description: string;
-  userId: string;
+  user: UserDoc;
 }
 
-interface QuestionDoc extends mongoose.Document {
+export interface QuestionDoc extends mongoose.Document {
   title: string;
   description: string;
-  userId: string;
+  user: UserDoc;
 }
 
 interface QuestionModel extends mongoose.Model<QuestionDoc> {
@@ -26,9 +28,9 @@ const questionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    userId: {
-      type: String,
-      required: true,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
@@ -40,6 +42,16 @@ const questionSchema = new mongoose.Schema(
     },
   }
 );
+
+questionSchema.pre("findOne", function (next) {
+  this.populate("user");
+  next();
+});
+
+questionSchema.pre("find", function (next) {
+  this.populate("user");
+  next();
+});
 
 questionSchema.statics.build = (attrs: QuestionAttrs) => {
   return new Question(attrs);
