@@ -25,7 +25,7 @@ Developed with automated test using:
 - [x] ~~Authentication Route Testing~~
 - [x] ~~Question Route Functionality~~
 - [x] ~~Question Route Testing~~
-- [x] Answer Route Functionality
+- [x] ~~Answer Route Functionality~~
 - [ ] Answer Route Testing
 - [ ] Basic NextJS Setup
 - [ ] Client Auth Functionality
