@@ -80,7 +80,7 @@ describe("Create new question route", () => {
 });
 
 describe("Update question route", () => {
-  it("return 404 if ticket is not found", async () => {
+  it("return 404 if question is not found", async () => {
     const id = new mongoose.Types.ObjectId().toHexString();
 
     await request(app)
@@ -93,7 +93,7 @@ describe("Update question route", () => {
       .expect(404);
   });
 
-  it("not return 404 if ticket is found", async () => {
+  it("not return 404 if question is found", async () => {
     const cookie = await global.signin();
 
     let response = await request(app)
@@ -106,7 +106,7 @@ describe("Update question route", () => {
       .expect(201);
 
     await request(app)
-      .post(`/api/v1/questions/${response.body.id}`)
+      .post(`/api/v1/questions/${response.body._id}`)
       .set("Cookie", cookie)
       .send({
         title: "test update",

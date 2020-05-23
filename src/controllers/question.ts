@@ -32,13 +32,13 @@ export const getById = async (req: Request, res: Response) => {
 };
 
 export const update = async (req: Request, res: Response) => {
-  const question = await Question.findById(req.params.id);
+  const question = await Question.findById(req.params.id).populate("user");
 
   if (!question) {
     throw new NotFoundError();
   }
 
-  if (question.user._id !== req.currentUser!._id) {
+  if (question.user.id !== req.currentUser!.id) {
     throw new NotAuthorizedError();
   }
 

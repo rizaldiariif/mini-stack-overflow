@@ -50,7 +50,7 @@ export const signin = async (req: Request, res: Response) => {
 
   // Generate token
   const token = jwt.sign(
-    { id: existingUser.id, email: existingUser.email },
+    { _id: existingUser.id, email: existingUser.email },
     process.env.JWT_KEY!
   );
 

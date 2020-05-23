@@ -2,6 +2,8 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
+import { User } from "../models/user";
+
 declare global {
   namespace NodeJS {
     interface Global {
@@ -31,6 +33,17 @@ beforeEach(async () => {
   for (const collection of collections) {
     await collection.deleteMany({});
   }
+
+  const user = User.build({
+    email: "default@test.com",
+    password: "12345678",
+  });
+
+  user.set({
+    _id: new mongoose.Types.ObjectId("507f191e810c19729de860ea"),
+  });
+
+  await user.save();
 });
 
 afterAll(async () => {
@@ -40,8 +53,8 @@ afterAll(async () => {
 
 global.signin = () => {
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
-    email: "test@test.com",
+    _id: new mongoose.Types.ObjectId("507f191e810c19729de860ea").toHexString(),
+    email: "default@test.com",
   };
 
   const token = jwt.sign(payload, process.env.JWT_KEY!);

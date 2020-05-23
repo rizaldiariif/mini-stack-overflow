@@ -8,7 +8,7 @@ import { advancedResults } from "../middlewares/advanced-result";
 
 import { Question } from "../models/question";
 
-import { create, update, getAll, getById } from "../controllers/question";
+import { getAll, getById, create, update } from "../controllers/question";
 
 const router = express.Router();
 

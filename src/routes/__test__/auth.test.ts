@@ -126,7 +126,7 @@ describe("Current user route", () => {
       .send()
       .expect(200);
 
-    expect(response.body.currentUser.email).toEqual("test@test.com");
+    expect(response.body.currentUser.email).toEqual("default@test.com");
   });
 
   it("responds with null if user is not signed in", async () => {
